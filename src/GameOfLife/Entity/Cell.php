@@ -24,49 +24,63 @@ class Cell
         return $this->state;
     }
 
-    /** Change cell status  */
-    public function updateLife() : string
+    /**
+     * @param mixed $state
+     */
+    public function setState($state): void
     {
-        $cellNeighbours = array_count_values($this->getCellNeighbours($this->currentGameGrid, $this->rowIndex, $this->colIndex));
-        switch ($this->state) {
-            case Cell::DEAD_CELL:
-                if (isset($cellNeighbours[Cell::LIVE_CELL]) && $cellNeighbours[Cell::LIVE_CELL] === 3) {
-                    $this->state = Cell::LIVE_CELL;
-                }
-                break;
-            case Cell::LIVE_CELL:
-                if (isset($cellNeighbours[Cell::LIVE_CELL]) && ($cellNeighbours[Cell::LIVE_CELL] < 2
-                        || $cellNeighbours[Cell::LIVE_CELL] > 3)) {
-                    $this->state = Cell::DEAD_CELL;
-                }
-                break;
-        }
-        return $this->state;
+        $this->state = $state;
+    }
+
+
+
+    /**
+     * @return array
+     */
+    public function getCurrentGameGrid(): array
+    {
+        return $this->currentGameGrid;
     }
 
     /**
-     * helpers
+     * @param array $currentGameGrid
      */
-    public function getCellNeighbours(array $gameGrid, int $rowIndex, int $colIndex) : array
+    public function setCurrentGameGrid(array $currentGameGrid): void
     {
-        $neighbourhoodOfCell = [];
-        $rowsPositions = [$rowIndex - 1, $rowIndex, $rowIndex + 1];
-        foreach ($rowsPositions as $rowPosition) {
-            if ((($rowPosition >= 0) && ($rowPosition < count($gameGrid)))) {
-                $neighbourhoodOfCell = array_merge($neighbourhoodOfCell, $this->getCellNeighboursPerRow($gameGrid,$rowPosition,$colIndex));
-            }
-        }
-        return $neighbourhoodOfCell;
+        $this->currentGameGrid = $currentGameGrid;
     }
-    private function getCellNeighboursPerRow($gameGrid,int $rowIndex, int $colIndex) : array
+
+    /**
+     * @return int
+     */
+    public function getRowIndex(): int
     {
-        $neighbourhoodOfCellFromRow = [];
-        $row = $gameGrid[$rowIndex];
-        array_push($neighbourhoodOfCellFromRow, $row[$colIndex - 1] ?? '.');
-        if ($this->rowIndex !== $rowIndex) {
-            array_push($neighbourhoodOfCellFromRow, $row[$colIndex] ?? '.');
-        }
-        array_push($neighbourhoodOfCellFromRow, $row[$colIndex + 1] ?? '.');
-        return $neighbourhoodOfCellFromRow;
+        return $this->rowIndex;
     }
+
+    /**
+     * @param int $rowIndex
+     */
+    public function setRowIndex(int $rowIndex): void
+    {
+        $this->rowIndex = $rowIndex;
+    }
+
+    /**
+     * @return int
+     */
+    public function getColIndex(): int
+    {
+        return $this->colIndex;
+    }
+
+    /**
+     * @param int $colIndex
+     */
+    public function setColIndex(int $colIndex): void
+    {
+        $this->colIndex = $colIndex;
+    }
+
+
 }

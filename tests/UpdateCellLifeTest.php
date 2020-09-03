@@ -3,6 +3,7 @@
 namespace GameOfLife;
 
 use GameOfLife\Entity\Cell;
+use GameOfLife\Service\GameOfLifeService;
 use PHPUnit\Framework\TestCase;
 
 class UpdateCellLifeTest extends TestCase
@@ -38,9 +39,10 @@ class UpdateCellLifeTest extends TestCase
      */
      public function testReturnCellStatusFromDataToMakeDecision($gameGrid, $cellRowIndex, $cellColIndex, $expectedStatus, $initialStatus)
      {
+         $gameOfLifeService = new GameOfLifeService();
          $cell = new Cell($gameGrid, $cellRowIndex, $cellColIndex);
          $this->assertEquals($initialStatus, $cell->getState());
-         $this->assertCount(8, $cell->getCellNeighbours($gameGrid, $cellRowIndex, $cellColIndex));
-         $this->assertEquals($expectedStatus, $cell->updateLife());
+         $this->assertCount(8, $gameOfLifeService->getCellNeighbours($cell));
+         $this->assertEquals($expectedStatus, $gameOfLifeService->updateLife($cell));
      }
 }
