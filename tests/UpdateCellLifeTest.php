@@ -37,7 +37,7 @@ class UpdateCellLifeTest extends TestCase
      * @param $expectedStatus
      * @param $initialStatus
      */
-     public function testReturnCellStatusFromDataToMakeDecision($gameGrid, $cellRowIndex, $cellColIndex, $expectedStatus, $initialStatus)
+     public function testCellStatusForNextGeneration($gameGrid, $cellRowIndex, $cellColIndex, $expectedStatus, $initialStatus)
      {
          $gameOfLifeService = new GameOfLifeService();
          $cell = new Cell($gameGrid, $cellRowIndex, $cellColIndex);
