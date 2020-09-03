@@ -1,0 +1,24 @@
+{
+    "name": "meme/game-of-life_php_solution",
+    "description": "a simple php implementation of the Game of life code kata",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Amal Hichri",
+            "email": "amal.dev@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "GameOfLife": ["src", "tests"]
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7"
+    },
+
+
+    "scripts": {
+        "myTests": "vendor\\bin\\phpunit"
+    }
+}
